@@ -12,4 +12,4 @@ data.tar.gz: $(DEBNAME)
 	ar x $(DEBNAME)
 
 repo:
-	ostree  init --mode=archive-z2 --repo=repo
+	ostree init --mode=archive-z2 --repo=repo
