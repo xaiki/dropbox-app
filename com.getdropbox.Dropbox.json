@@ -1,0 +1,52 @@
+{
+    "app-id": "com.getdropbox.Dropbox",
+    "runtime": "com.endlessm.Platform",
+    "runtime-version": "master",
+    "sdk": "com.endlessm.Sdk",
+    "command": "dropbox",
+    "finish-args": [
+        /* X11 + XShm access */
+        "--share=ipc", "--socket=x11",
+        /* Network access */
+        "--share=network"
+    ],
+    "modules": [
+        {
+            "name": "dropbox",
+            "no-autogen": true,
+            "sources" : [
+                {
+                    "type": "archive",
+                    "path": "data.tar.gz"
+                },
+                {
+                    "type": "file",
+                    "path": "install-flatpak.mk",
+                    "dest-filename": "Makefile"
+                }
+            ],
+            "post-install": [
+                "find /app -name 'dropbox.*' | while read f; do g=`echo $f | sed s/'dropbox.'/'org.getdropbox.Dropbox.'/g`; echo $f $g; mv $f $g; done"
+            ]
+        },
+        {
+            "name": "dropboxd",
+            "no-autogen": true,
+            "sources" : [
+                {
+                    "type": "archive",
+                    "path": "dropboxd.tar.gz"
+                },
+                {
+                    "type": "file",
+                    "path": "install-flatpak.mk",
+                    "dest-filename": "Makefile"
+                }
+            ],
+            "post-install": [
+                "mkdir -p /app/files/bin",
+                "mv dropbox* /app/files/bin"
+            ]
+        }
+    ]
+}

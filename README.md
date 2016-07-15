@@ -1,3 +1,9 @@
+
+inspired by https://github.com/alexlarsson/spotify-app
+
+adapted for dropbox
+
+-----
 This repo contains a working version of the spotify x86-64 linux client packaged as an xdg-app.
 Unfortunately there is no redistribution rights for the spotify binaries, so you have to create your own to use it.
 
@@ -8,7 +14,6 @@ flatpak --user remote-add --gpg-import=gnome-sdk.gpg gnome http://sdk.gnome.org/
 flatpak --user install gnome org.freedesktop.Sdk 1.4
 flatpak --user install gnome org.freedesktop.Platform 1.4
 ```
-
 
 To test this, do:
 ```

@@ -1,15 +1,25 @@
-VERSION=1.0.32.96.g3c8a06e6-37
-DEBNAME=spotify-client_$(VERSION)_amd64.deb
+NAME=com.getdropbox.Dropbox
+VERSION=2015.10.28
+ARCH=amd64
+DEBNAME=dropbox_$(VERSION)_$(ARCH).deb
 
-all: repo data.tar.gz com.spotify.Client.json
-	rm -rf spotify
-	flatpak-builder --repo=repo spotify com.spotify.Client.json
+all: repo dropboxd dropbox
+	rm -rf $(NAME)
+	flatpak-builder --repo=repo $(NAME) $(NAME).json
+
+dropbox: $(DEBNAME) data.tar.gz
 
 $(DEBNAME):
-	wget "http://repository.spotify.com/pool/non-free/s/spotify-client/$(DEBNAME)"
+	wget -c "https://linux.dropbox.com/packages/debian/$(DEBNAME)" -O $@.part
+	mv $@.part $@
 
 data.tar.gz: $(DEBNAME)
-	ar x $(DEBNAME)
+	ar x $<
+
+dropboxd: dropboxd.tar.gz
+dropboxd.tar.gz:
+	wget -c "https://www.dropbox.com/download?plat=lnx.x86_64" -O $@.part
+	mv $@.part $@x
 
 repo:
 	ostree init --mode=archive-z2 --repo=repo
