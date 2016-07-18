@@ -1,5 +1,5 @@
 {
-    "app-id": "com.getdropbox.Dropbox",
+    "app-id": "@NAME@",
     "runtime": "com.endlessm.Platform",
     "runtime-version": "master",
     "sdk": "com.endlessm.Sdk",
@@ -26,7 +26,7 @@
                 }
             ],
             "post-install": [
-                "find /app -name 'dropbox.*' | while read f; do g=`echo $f | sed s/'dropbox.'/'org.getdropbox.Dropbox.'/g`; echo $f $g; mv $f $g; done"
+                "find /app -name 'dropbox.*' | while read f; do g=`echo $f | sed s/'dropbox.'/'@NAME@.'/g`; echo $f $g; mv $f $g; done"
             ]
         },
         {

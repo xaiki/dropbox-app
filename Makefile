@@ -3,7 +3,7 @@ VERSION=2015.10.28
 ARCH=amd64
 DEBNAME=dropbox_$(VERSION)_$(ARCH).deb
 
-all: repo dropboxd dropbox
+all: repo json dropboxd dropbox
 	rm -rf $(NAME)
 	flatpak-builder --repo=repo $(NAME) $(NAME).json
 
@@ -19,7 +19,11 @@ data.tar.gz: $(DEBNAME)
 dropboxd: dropboxd.tar.gz
 dropboxd.tar.gz:
 	wget -c "https://www.dropbox.com/download?plat=lnx.x86_64" -O $@.part
-	mv $@.part $@x
+	mv $@.part $@
+
+json: $(NAME).json
+$(NAME).json: $(NAME).json.in
+	cat $< | sed s/'@NAME@'/"$(NAME)"/ > $@
 
 repo:
 	ostree init --mode=archive-z2 --repo=repo
